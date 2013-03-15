@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 	function get_twig($uri){
 		require_once(TIMBER_LOC.'/Twig/lib/Twig/Autoloader.php');
@@ -122,23 +122,15 @@
 	}
 
 	function render_twig($filenames, $data = array(), $render = true){
-		/*
-		$uri = TIMBER_URI;
-		if (file_exists(THEME_URI.'/'.$filename)){
-			$uri = THEME_URI;
-		}
-		*/
-		if (!defined("THEME_LOC")){
-			define("THEME_LOC", TIMBER_LOC);
-		}
+		
 		if(!$data){
 			$data = array();
 		}
-		$uri = TIMBER_LOC;
-		if (THEME_LOC != TIMBER_LOC){
-			$uri = array();
-			$uri[] = THEME_LOC;
-			$uri[] = TIMBER_LOC;
+		$uri = array();
+		$uri[] = get_stylesheet_directory();
+		$uri_parent = get_template_directory();
+		if ($uri[0] != $uri_parent){
+			$uri[] = $uri_parent;
 		}
 		$twig = get_twig($uri);
 		
